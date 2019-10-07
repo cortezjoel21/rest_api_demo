@@ -1,6 +1,7 @@
 import logging
 
-from flask import request
+from flask import request, Flask
+from flask_cors import CORS, cross_origin
 from flask_restplus import Resource
 from rest_api_demo.api.client.business import create_client_user, update_user, delete_user
 from rest_api_demo.api.client.serializers import client_user, page_of_client_users
@@ -9,6 +10,9 @@ from rest_api_demo.api.restplus import api
 from rest_api_demo.database.models import User
 
 log = logging.getLogger(__name__)
+
+app = Flask(__name__)
+cors = CORS(app, resources={r"/atr/*": {"origins": "*"}})
 
 ns = api.namespace('client/users', description='Operations related to client users')
 
@@ -19,7 +23,7 @@ class UsersCollection(Resource):
     #@api.marshal_with(page_of_client_users)
     def get(self):
         user = User.all()
-        return user
+        return user, {'Access-Control-Allow-Origin': '*'}
 
     @api.expect(client_user)
     def post(self):

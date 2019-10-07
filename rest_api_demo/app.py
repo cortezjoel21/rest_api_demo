@@ -28,7 +28,7 @@ def configure_app(flask_app):
 def initialize_app(flask_app):
     configure_app(flask_app)
 
-    blueprint = Blueprint('client', __name__, url_prefix='/client')
+    blueprint = Blueprint('client', __name__, url_prefix='/atr')
     api.init_app(blueprint)
     #api.add_namespace(blog_posts_namespace)
     #api.add_namespace(blog_categories_namespace)
@@ -39,7 +39,7 @@ def initialize_app(flask_app):
 
 def main():
     initialize_app(app)
-    log.info('>>>>> Starting development server at http://{}/client/ <<<<<'.format(app.config['SERVER_NAME']))
+    log.info('>>>>> Starting development server at http://{}/atr/ <<<<<'.format(app.config['SERVER_NAME']))
     app.run(debug=settings.FLASK_DEBUG)
 
 
